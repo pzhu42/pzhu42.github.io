@@ -6,69 +6,53 @@ body {
     min-height: 100vh;
 }
 
-body.day {
-    background: linear-gradient(to bottom, #87CEEB 0%, #FFE4B5 100%);
-    color: #2c3e50;
+body.red {
+    background: linear-gradient(135deg, #8B0000, #DC143C, #FF6B6B);
+    color: #fff;
 }
 
-body.night {
-    background: linear-gradient(to bottom, #0c1445 0%, #1a1a2e 100%);
+body.black {
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #2d2d2d);
     color: #e0e0e0;
 }
 
-#celestial {
+#poker-chip {
     position: fixed;
     top: 40px;
     right: 40px;
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    border-width: 8px;
+    border-style: dashed;
     cursor: pointer;
     transition: all 0.5s ease;
     z-index: 100;
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-body.day #celestial {
-    background: #FFD700;
-    box-shadow: 0 0 30px #FFD700;
+body.red #poker-chip {
+    background: #fff;
+    border-color: #DC143C;
+    color: #DC143C;
 }
 
-body.night #celestial {
-    background: #f4f4f4;
-    box-shadow: 0 0 30px rgba(255,255,255,0.3);
+body.red #poker-chip::after { content: '♥'; }
+
+body.black #poker-chip {
+    background: #2d2d2d;
+    border-color: #fff;
+    color: #fff;
 }
 
-body.night #celestial::before {
-    content: '';
-    position: absolute;
-    top: 7px;
-    left: 13px;
-    width: 70px;
-    height: 70px;
-    background: #1a1a2e;
-    border-radius: 50%;
-}
-
-#stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-}
+body.black #poker-chip::after { content: '♠'; }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     position: relative;
     z-index: 10;
@@ -90,57 +74,134 @@ h1 {
 
 .subtitle {
     font-size: 0.9em;
-    opacity: 0.7;
+    opacity: 0.8;
     margin-bottom: 40px;
 }
 
-h2 {
-    margin-top: 0;
-    font-size: 1.5em;
+.poker-round {
+    margin: 50px 0;
 }
 
-.section {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 2px solid;
-    padding: 25px;
-    margin: 30px 0;
+.round-title {
+    font-size: 1.2em;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+    text-align: center;
+}
+
+.flop {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card-wrapper {
+    perspective: 1000px;
+    cursor: pointer;
+    min-height: 250px;
+}
+
+.turn-card,
+.river-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.poker-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flipped .poker-card {
+    transform: rotateY(180deg);
+}
+
+.card-back,
+.card-front {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
     border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 25px;
 }
 
-body.day .section {
-    border-color: rgba(0, 0, 0, 0.2);
+.card-back {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #444;
 }
 
-body.night .section {
-    border-color: rgba(255, 255, 255, 0.2);
+body.red .card-back {
+    background: linear-gradient(135deg, #8B0000, #DC143C);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
-.hobby-list,
-.timeline-list {
+.card-pattern {
+    font-size: 4em;
+    opacity: 0.3;
+    letter-spacing: 10px;
+}
+
+.card-front {
+    background: rgba(255, 255, 255, 0.95);
+    color: #2c3e50;
+    transform: rotateY(180deg);
+}
+
+body.black .card-front {
+    background: rgba(40, 40, 40, 0.95);
+    color: #e0e0e0;
+}
+
+.card-corner {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #DC143C;
+}
+
+body.black .card-corner {
+    color: #fff;
+}
+
+h3 {
+    margin: 40px 0 15px;
+    font-size: 1.2em;
+    text-transform: lowercase;
+}
+
+.poker-card p {
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.hobby-list li,
-.timeline-list li {
-    padding: 10px 0;
-    border-bottom: 1px dashed;
-    opacity: 0.8;
+.list li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
 }
 
-body.day .hobby-list li,
-body.day .timeline-list li {
-    border-color: rgba(0, 0, 0, 0.2);
+body.black .list li {
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
-body.night .hobby-list li,
-body.night .timeline-list li {
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.hobby-list li:last-child,
-.timeline-list li:last-child {
+.list li:last-child {
     border-bottom: none;
 }
 
@@ -148,14 +209,11 @@ body.night .timeline-list li {
     font-weight: bold;
     display: inline-block;
     min-width: 50px;
+    color: #8B0000;
 }
 
-body.day .year {
-    color: #e67e22;
-}
-
-body.night .year {
-    color: #3498db;
+body.black .year {
+    color: #000000;
 }
 
 footer {
@@ -165,31 +223,18 @@ footer {
     font-size: 0.9em;
 }
 
-a {
-    color: inherit;
-    text-decoration: underline;
-}
-
-@media (max-width: 600px) {
-    body {
-        padding: 15px;
-    }
+@media (max-width: 768px) {
+    body { padding: 15px; }
+    h1 { font-size: 2em; }
+    .round-title { font-size: 1em; }
+    .flop { grid-template-columns: 1fr; }
     
-    h1 {
-        font-size: 2em;
-    }
-
-    #celestial {
+    #poker-chip {
         width: 60px;
         height: 60px;
         top: 20px;
         right: 20px;
-    }
-
-    body.night #celestial::before {
-        width: 40px;
-        height: 40px;
-        top: 10px;
-        left: 15px;
+        font-size: 1.5em;
+        border-width: 6px;
     }
 }
