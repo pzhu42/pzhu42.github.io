@@ -92,19 +92,23 @@ h1 {
 
 .flop {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    justify-items: center;
 }
 
 .card-wrapper {
     perspective: 1000px;
     cursor: pointer;
-    min-height: 250px;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 5 / 7;
+    min-height: 380px;
 }
 
 .turn-card,
 .river-card {
-    max-width: 600px;
+    max-width: 280px;
     margin: 0 auto;
 }
 
@@ -112,7 +116,7 @@ h1 {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 250px;
+    min-height: 380px;
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
@@ -126,9 +130,11 @@ h1 {
     position: absolute;
     inset: 0;
     backface-visibility: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    padding: 25px;
+    padding: 20px;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .card-back {
@@ -145,9 +151,9 @@ body.red .card-back {
 }
 
 .card-pattern {
-    font-size: 4em;
+    font-size: 3em;
     opacity: 0.3;
-    letter-spacing: 10px;
+    letter-spacing: 8px;
 }
 
 .card-front {
@@ -175,26 +181,39 @@ body.black .card-corner {
 }
 
 h3 {
-    margin: 40px 0 15px;
-    font-size: 1.2em;
+    margin: 35px 0 12px;
+    font-size: 1.1em;
     text-transform: lowercase;
+    word-wrap: break-word;
 }
 
 .poker-card p {
-    line-height: 1.6;
+    line-height: 1.5;
     opacity: 0.9;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    font-size: 0.9em;
 }
 
 .list {
     list-style: none;
     padding: 0;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .list li {
-    padding: 8px 0;
+    padding: 6px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     opacity: 0.9;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    font-size: 0.9em;
 }
 
 body.black .list li {
@@ -221,6 +240,20 @@ footer {
     margin-top: 60px;
     opacity: 0.6;
     font-size: 0.9em;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+footer a:hover {
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
